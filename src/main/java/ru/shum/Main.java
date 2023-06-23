@@ -1,5 +1,6 @@
 package ru.shum;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -14,6 +15,8 @@ public class Main {
     //Создаем и инициализируем массив покупателей
     customers[0] = new Customer("Иванов", "Иван", 30, "1234567890", Gender.MALE);
     customers[1] = new Customer("Петрова", "Мария", 25, "0987654321", Gender.FEMALE);
+
+
     // Создаём массив товаров
     products[0] = new Product("Товар 1", 100.0, Category.STANDARD);
     products[1] = new Product("Товар 2", 200.0, Category.PREMIUM);
@@ -21,8 +24,13 @@ public class Main {
     products[3] = new Product("Товар 4", 400.0, Category.PREMIUM);
     products[4] = new Product("Товар 5", 500.0, Category.STANDARD);
 
+
+    System.out.println();
 // Устанавливаем случайную скидку на товар
     products[3].setRandomDiscount();
+    System.out.println("На " + products[3].getName() + " действует скидка, его прошлая цена за штуку 400");
+    System.out.println();
+
 
     // Создаем массив заказов
     Random random = new Random();
@@ -32,6 +40,7 @@ public class Main {
     for (int i = 0; i < orders.length; i++) {
       Customer Customer = customers[random.nextInt(customers.length)];
       Product Product = products[random.nextInt(products.length)];
+
 
 
       int Quantity = random.nextInt(5) - 1;
@@ -50,6 +59,8 @@ public class Main {
         System.out.println(e.getMessage() + " (" + Quantity + ")");
       }
     }
+
+
     /**
      * Метод для подсчета общего количества совершенных покупок.
      *
@@ -62,6 +73,8 @@ public class Main {
         count++;
       }
     }
+
+
     // Выводим информацию о совершенных покупках
     System.out.println("Количество совершенных покупок: " + count);
   }
@@ -98,6 +111,7 @@ public class Main {
         break;
       }
     }
+
     if (product == null) {
       throw new ProductException("Несуществующий товар: " + productName);
     }
