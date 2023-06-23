@@ -6,95 +6,98 @@ import java.util.Random;
  * Главный класс программы.
  */
 public class Main {
-
+  private static Customer[] customers = new Customer[2];
+  private static Product[] products = new Product[5];
+  //private static Order[] orders = new Order[5];
   public static void main(String[] args) {
     //Создаем и инициализируем массив покупателей
-    Customer[] customers = {
-        new Customer("Иванов", "Иван", 25, "123456789", Gender.MALE),
-        new Customer("Петрова", "Мария", 30, "987654321", Gender.FEMALE)};
+    customers[0] = new Customer("Иванов", "Иван", 30, "1234567890", Gender.MALE);
+    customers[1] = new Customer("Петрова", "Мария", 25, "0987654321", Gender.FEMALE);
     // Создаём массив товаров
-    Product[] products = {
-        new Product("Товар 1", 100.0, Category.STANDARD),
-        new Product("Товар 2", 200.0, Category.STANDARD),
-        new Product("Товар 3", 300.0, Category.PREMIUM),
-        new Product("Товар 4", 400.0, Category.PREMIUM),
-        new Product("Товар 5", 500.0, Category.STANDARD),
-    };
+    products[0] = new Product("Товар 1", 100.0, Category.STANDARD);
+    products[1] = new Product("Товар 2", 200.0, Category.PREMIUM);
+    products[2] = new Product("Товар 3", 300.0, Category.STANDARD);
+    products[3] = new Product("Товар 4", 400.0, Category.PREMIUM);
+    products[4] = new Product("Товар 5", 500.0, Category.STANDARD);
+
     // Создаем массив заказов
     Random random = new Random();
     int orderCount = random.nextInt(10) + 1; // Генерация случайного числа от 1 до 10
     Order[] orders = new Order[orderCount];
 
     for (int i = 0; i < orders.length; i++) {
-      Customer randomCustomer = customers[random.nextInt(customers.length)];
-      Product randomProduct = products[random.nextInt(products.length)];
-      int randomQuantity = random.nextInt(10) - 1;
+      Customer Customer = customers[random.nextInt(customers.length)];
+      Product Product = products[random.nextInt(products.length)];
+      int Quantity = random.nextInt(5) - 1;
 
       // Вызываем метод совершения покупки для заполнения массива заказов
       try {
-        orders[i] = makePurchase(randomCustomer, randomProduct, randomQuantity);
+        orders[i] = makePurchase(Customer.getLastName(), Product.getName(), Quantity);
       } catch (CustomerException e) {
-        System.out.println("Ошибка: " + e.getMessage());
-        System.out.println("Завершение работы программы.");
-        return;
+        System.out.println(e.getMessage() + " (" + Customer.getLastName() + ")");
       } catch (ProductException e) {
-        System.out.println("Ошибка: " + e.getMessage());
-        System.out.println("Товар не будет добавлен в заказ.");
+        System.out.println(e.getMessage() + " (" + Product.getName() + ")");
       } catch (AmountException e) {
-        System.out.println("Ошибка: " + e.getMessage() + " - " + randomCustomer.getLastName() + ", "
-            + randomProduct.getName());
+        System.out.println(e.getMessage() + " (" + Quantity + ")");
       }
     }
-
-    // Выводим информацию о совершенных покупках
-    System.out.println("Итоговое количество совершенных покупок: " + getOrderCount(orders));
-  }
-
-  /**
-   * Метод для совершения покупки.
-   *
-   * @param customer покупатель
-   * @param product  товар
-   * @param quantity количество товара
-   * @return объект заказа
-   * @throws CustomerException если передан несуществующий покупатель
-   * @throws ProductException  если передан несуществующий товар
-   * @throws AmountException   если передано отрицательное или слишком большое значение количества
-   */
-  public static Order makePurchase(Customer customer, Product product, int quantity)
-      throws CustomerException, ProductException, AmountException {
-    // Проверяем, что покупатель существует
-    if (customer == null) {
-      throw new CustomerException("Несуществующий покупатель");
-    }
-
-    // Проверяем, что товар существует
-    if (product == null) {
-      throw new ProductException("Несуществующий товар");
-    }
-
-    // Проверяем значение количества товара
-    if (quantity <= 0 || quantity > 5) {
-      throw new AmountException("Неверное количество товара");
-    }
-    // Создаем и возвращаем объект заказа
-    return new Order(customer, product, quantity);
-  }
-
-  /**
-   * Метод для подсчета общего количества совершенных покупок.
-   *
-   * @param orders массив заказов
-   * @return общее количество покупок
-   */
-  public static int getOrderCount(Order[] orders) {
+    /**
+     * Метод для подсчета общего количества совершенных покупок.
+     *
+     * @param orders массив заказов
+     * @return общее количество покупок
+     */
     int count = 0;
     for (Order order : orders) {
       if (order != null) {
         count++;
       }
     }
-    return count;
+    // Выводим информацию о совершенных покупках
+    System.out.println("Количество совершенных покупок: " + count);
+  }
+
+  /**
+   * Метод для совершения покупки
+   *
+   * @param lastName фамилия покупателя
+   * @param productName название товара
+   * @param quantity количество товара
+   * @return объект заказа
+   * @throws CustomerException если передан несуществующий покупатель
+   * @throws ProductException если передан несуществующий товар
+   * @throws AmountException если передано неверное количество товара
+   */
+  public static <customer> Order makePurchase(String lastName, String productName, int quantity)
+      throws CustomerException, ProductException, AmountException {
+    Customer customer = null;
+    for (Customer c : customers) {
+      if (c.getLastName().equals(lastName)) {
+        customer = c;
+        break;
+      }
+    }
+
+    if (customer == null) {
+      throw new CustomerException("Несуществующий покупатель: " + lastName);
+    }
+
+    Product product = null;
+    for (Product p : products) {
+      if (p.getName().equals(productName)) {
+        product = p;
+        break;
+      }
+    }
+    if (product == null) {
+      throw new ProductException("Несуществующий товар: " + productName);
+    }
+
+    if (quantity <= 0 || quantity > 99) {
+      throw new AmountException("Неверное количество: " +  " " + lastName + " " + productName);
+    }
+
+    return new Order(customer, product, quantity);
   }
 }
 

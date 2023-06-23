@@ -5,8 +5,8 @@ package ru.shum;
  */
 public enum Gender {
   MALE("Мужской"),
-  FEMALE("Женский"),
-  OTHER("Другой");
+  FEMALE("Женский");
+
 
   private final String label;
 

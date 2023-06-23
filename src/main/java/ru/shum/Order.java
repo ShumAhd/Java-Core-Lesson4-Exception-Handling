@@ -1,62 +1,90 @@
 package ru.shum;
 
+import java.util.Random;
+
 /**
  * Класс, представляющий заказ.
  */
 public class Order {
-
-  private Customer customer; // Объект покупатель
-  private Product product; // Объект товар
-  private int quantity; // Количество
+  private Customer customer;
+  private Product product;
+  private int quantity;
   private double cost;
 
   /**
    * Конструктор класса Order.
    *
-   * @param customer Покупатель.
-   * @param product  Товар.
-   * @param quantity Количество товара.
+   * @param customer покупатель
+   * @param product  товар
+   * @param quantity количество товара
    */
   public Order(Customer customer, Product product, int quantity) {
     this.customer = customer;
     this.product = product;
     this.quantity = quantity;
-    this.cost = cost;
+    this.cost = product.getPrice() * quantity;
   }
-  // Геттеры для свойств заказа
 
   /**
-   * Получить покупателя заказа.
-   * @return Покупатель заказа.
+   * Получить покупателя.
+   *
+   * @return покупатель
    */
   public Customer getCustomer() {
     return customer;
   }
 
+
+  public void setCustomer(Customer customer) {
+    this.customer = customer;
+  }
   /**
-   * Получить товар заказа.
-   * @return Товар заказа.
+   * Геттер для объекта товар
+   *
+   * @return объект товар
    */
   public Product getProduct() {
     return product;
   }
+  /**
+   * Сеттер для объекта товар
+   *
+   * @param product новый объект товар
+   */
+  public void setProduct(Product product) {
+    this.product = product;
+  }
 
   /**
-   * Получить
-
-   количество товара в заказе.
-   * @return Количество товара в заказе.
+   * Получить количество товара.
+   *
+   * @return количество товара
    */
   public int getQuantity() {
     return quantity;
   }
-
   /**
-   * Получить стоимость заказа.
-   * @return Стоимость заказа.
+   * Сеттер для количества товара
+   *
+   * @param quantity новое количество товара
+   */
+  public void setQuantity(int quantity) {
+    this.quantity = quantity;
+  }
+  /**
+   * Геттер для стоимости заказа
+   *
+   * @return стоимость заказа
    */
   public double getCost() {
     return cost;
   }
+  /**
+   * Сеттер для стоимости заказа
+   *
+   * @param cost новая стоимость заказа
+   */
+  public void setCost(double cost) {
+    this.cost = cost;
+  }
 }
-

@@ -8,7 +8,7 @@ public class Product {
   private String name;
   private double price;
   private Category category;
-  private DiscountSize discountSize;
+
 
   /**
    * Конструктор класса Product.
@@ -21,7 +21,7 @@ public class Product {
     this.name = name;
     this.price = price;
     this.category = category;
-    this.discountSize = discountSize;
+
   }
   // Геттеры и сеттеры для свойств товара
 
@@ -79,27 +79,4 @@ public class Product {
     this.category = category;
   }
 
-  /**
-   * Получить размер скидки на товар.
-   *
-   * @return Размер скидки на товар.
-   */
-  public DiscountSize getDiscountSize() {
-    return discountSize;
-  }
-
-  /**
-   * Установить размер скидки на товар.
-   *
-   * @param discountSize Размер скидки на товар.
-   */
-  public void setDiscountSize(DiscountSize discountSize) {
-    this.discountSize = discountSize;
-  }
-  /**
-   * Применить случайную скидку на товар из перечисления DiscountSize.
-   */
-//  public void applyRandomDiscount(){
-//    DiscountSize[] sizes = DiscountSize
-//  }
 }
