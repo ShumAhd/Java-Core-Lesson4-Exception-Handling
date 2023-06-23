@@ -17,7 +17,7 @@ public class Product {
    * @param price    Цена товара.
    * @param category Категория товара.
    */
-  public Product(String name, double price, Category category, DiscountSize discountSize) {
+  public Product(String name, double price, Category category) {
     this.name = name;
     this.price = price;
     this.category = category;
@@ -99,7 +99,7 @@ public class Product {
   /**
    * Применить случайную скидку на товар из перечисления DiscountSize.
    */
-  public void applyRandomDiscount(){
-    DiscountSize[] sizes = DiscountSize
-  }
+//  public void applyRandomDiscount(){
+//    DiscountSize[] sizes = DiscountSize
+//  }
 }

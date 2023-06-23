@@ -17,7 +17,7 @@ public class Order {
    * @param product  Товар.
    * @param quantity Количество товара.
    */
-  public Order(Customer customer, Product product, int quantity, double cost) {
+  public Order(Customer customer, Product product, int quantity) {
     this.customer = customer;
     this.product = product;
     this.quantity = quantity;
