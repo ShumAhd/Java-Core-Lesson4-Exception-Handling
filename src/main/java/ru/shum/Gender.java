@@ -1,0 +1,30 @@
+package ru.shum;
+
+/**
+ * Перечисление, представляющее пол покупателя.
+ */
+public enum Gender {
+  MALE("Мужской"),
+  FEMALE("Женский"),
+  OTHER("Другой");
+
+  private final String label;
+
+  /**
+   * Конструктор перечисления Gender.
+   *
+   * @param label Метка пола.
+   */
+  Gender(String label) {
+    this.label = label;
+  }
+
+  /**
+   * Получить метку пола.
+   *
+   * @return Метка пола.
+   */
+  public String getLabel() {
+    return label;
+  }
+}
