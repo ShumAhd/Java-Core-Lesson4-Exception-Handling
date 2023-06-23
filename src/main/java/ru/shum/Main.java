@@ -8,8 +8,9 @@ import java.util.Random;
 public class Main {
   private static Customer[] customers = new Customer[2];
   private static Product[] products = new Product[5];
-  //private static Order[] orders = new Order[5];
+
   public static void main(String[] args) {
+
     //Создаем и инициализируем массив покупателей
     customers[0] = new Customer("Иванов", "Иван", 30, "1234567890", Gender.MALE);
     customers[1] = new Customer("Петрова", "Мария", 25, "0987654321", Gender.FEMALE);
@@ -20,6 +21,9 @@ public class Main {
     products[3] = new Product("Товар 4", 400.0, Category.PREMIUM);
     products[4] = new Product("Товар 5", 500.0, Category.STANDARD);
 
+// Устанавливаем случайную скидку на товар
+    products[3].setRandomDiscount();
+
     // Создаем массив заказов
     Random random = new Random();
     int orderCount = random.nextInt(10) + 1; // Генерация случайного числа от 1 до 10
@@ -28,11 +32,16 @@ public class Main {
     for (int i = 0; i < orders.length; i++) {
       Customer Customer = customers[random.nextInt(customers.length)];
       Product Product = products[random.nextInt(products.length)];
+
+
       int Quantity = random.nextInt(5) - 1;
 
       // Вызываем метод совершения покупки для заполнения массива заказов
       try {
         orders[i] = makePurchase(Customer.getLastName(), Product.getName(), Quantity);
+        // Выводим информацию о заказах
+        System.out.println("Заказ: " + orders[i].getProduct().getName() + ", количество: "
+            + orders[i].getQuantity() + ", стоимость: " + orders[i].getCost());
       } catch (CustomerException e) {
         System.out.println(e.getMessage() + " (" + Customer.getLastName() + ")");
       } catch (ProductException e) {
@@ -60,13 +69,13 @@ public class Main {
   /**
    * Метод для совершения покупки
    *
-   * @param lastName фамилия покупателя
+   * @param lastName    фамилия покупателя
    * @param productName название товара
-   * @param quantity количество товара
+   * @param quantity    количество товара
    * @return объект заказа
    * @throws CustomerException если передан несуществующий покупатель
-   * @throws ProductException если передан несуществующий товар
-   * @throws AmountException если передано неверное количество товара
+   * @throws ProductException  если передан несуществующий товар
+   * @throws AmountException   если передано неверное количество товара
    */
   public static <customer> Order makePurchase(String lastName, String productName, int quantity)
       throws CustomerException, ProductException, AmountException {
