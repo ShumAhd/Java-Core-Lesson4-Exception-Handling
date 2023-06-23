@@ -5,9 +5,9 @@ package ru.shum;
  */
 public class Order {
 
-  private Customer customer;
-  private Product product;
-  private int quantity;
+  private Customer customer; // Объект покупатель
+  private Product product; // Объект товар
+  private int quantity; // Количество
   private double cost;
 
   /**
